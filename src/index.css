@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@media (hover: hover) {
+
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"],
+  .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+iframe+div,
+[data-testid="powered-by"],
+a[href*="cal.com"] {
+  display: none !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+#home-main,
+#home-bento,
+#about,
+#resume,
+#contact {
+  scroll-snap-align: start;
+}
+
+footer {
+  scroll-snap-align: end;
+}
+
+.ticker-track {
+  width: max-content;
+  animation: tickerScroll 20s linear infinite;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rotateCards {
+  0% {
+    transform: translateX(0) scale(1) rotate(0deg);
+    z-index: 3;
+    opacity: 1;
+  }
+
+  33% {
+    transform: translateX(40px) scale(0.9) rotate(8deg);
+    z-index: 2;
+  }
+
+  66% {
+    transform: translateX(-40px) scale(0.9) rotate(-8deg);
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateX(0) scale(1) rotate(0deg);
+    z-index: 3;
+    opacity: 1;
+  }
+}
+
+/* LEFT SCROLL */
+.ticker-left {
+  width: max-content;
+  animation: scrollLeft 60s linear infinite;
+  animation-play-state: running !important;
+  will-change: transform;
+}
+
+/* RIGHT SCROLL */
+.ticker-right {
+  width: max-content;
+  animation: scrollRight 60s linear infinite;
+  animation-play-state: running !important;
+  will-change: transform;
+}
+
+.ticker-left:hover,
+.ticker-right:hover {
+  animation-play-state: running !important;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Optimize rendering and enable hardware acceleration on scrolling & hover */
+body,
+a,
+button,
+input,
+select,
+textarea,
+.hover-trigger,
+.project-card,
+.skill-card,
+.resume-card {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* Force hardware accelerated layers on transitions and animations to prevent lags */
+.hover-trigger,
+a,
+button,
+.card,
+[role="button"],
+.cursor-pointer {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Custom scrollbar styling to keep scrolling smooth and premium */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth hover transitions and glowing text highlights globally */
+p, span, h1, h2, h3, h4, h5, h6, a, li, label, button, i, svg,
+a *, button *, [role="button"] *, .cursor-pointer *, .hover-trigger * {
+  transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Global text elements turn to glowing cyan on hover */
+p:hover, 
+span:hover, 
+a:hover, 
+li:hover, 
+h1:hover, 
+h2:hover, 
+h3:hover, 
+h4:hover, 
+h5:hover, 
+h6:hover,
+label:hover,
+button:hover,
+i:hover,
+svg:hover,
+a:hover *,
+button:hover *,
+[role="button"]:hover *,
+.cursor-pointer:hover *,
+.hover-trigger:hover * {
+  color: #f1f5f9 !important;
+  fill: #f1f5f9 !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.45) !important;
+}
