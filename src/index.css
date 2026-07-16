@@ -16,8 +16,8 @@
 
 
 html {
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 :root {
@@ -36,6 +36,8 @@ body {
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 #home-main,
@@ -48,6 +50,34 @@ body {
 
 footer {
   scroll-snap-align: end;
+}
+
+/* Scrollbar hidden utility (for navbar overflow scroll) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth inner-section scroll containers */
+[style*="overflowY: auto"],
+.snap-y {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Premium fade-out mask at top of page, only on large screens to prevent cutting off mobile text details */
+.section-mask {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+@media (min-width: 1024px) {
+  .section-mask {
+    mask-image: linear-gradient(to bottom, transparent 0px, transparent 60px, black 100px) !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0px, transparent 60px, black 100px) !important;
+  }
 }
 
 .ticker-track {

@@ -126,7 +126,10 @@ export default function App() {
       >
         {/* HOME */}
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
-          <div style={{ width: '100%', height: '100%', overflowY: 'auto', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}>
+          <div 
+            style={{ width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}
+            className="section-mask"
+          >
             <Hero activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
         </div>
@@ -135,8 +138,8 @@ export default function App() {
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
           <div 
             ref={aboutCallbackRef}
-            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', scrollBehavior: 'smooth', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}
-            className="snap-y snap-mandatory"
+            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+            className="section-mask snap-y snap-mandatory"
           >
             {aboutEl && <About scrollContainer={{ current: aboutEl }} setActiveSection={setActiveSection} />}
           </div>
@@ -146,8 +149,8 @@ export default function App() {
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
           <div
             ref={skillsCallbackRef}
-            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', scrollBehavior: 'smooth', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}
-            className="snap-y snap-mandatory"
+            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+            className="section-mask snap-y snap-mandatory"
           >
             {skillsEl && <Skills scrollContainer={{ current: skillsEl }} activeSection={activeSection} />}
           </div>
@@ -157,8 +160,8 @@ export default function App() {
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
           <div
             ref={projectsCallbackRef}
-            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', scrollBehavior: 'smooth', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}
-            className="snap-y snap-mandatory"
+            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+            className="section-mask snap-y snap-mandatory"
           >
             {projectsEl && <Projects scrollContainer={{ current: projectsEl }} activeSection={activeSection} />}
           </div>
@@ -168,8 +171,8 @@ export default function App() {
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
           <div 
             ref={resumeCallbackRef}
-            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', scrollBehavior: 'smooth', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}
-            className="snap-y snap-mandatory"
+            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+            className="section-mask snap-y snap-mandatory"
           >
             {resumeEl && <Resume scrollContainer={{ current: resumeEl }} />}
           </div>
@@ -179,8 +182,8 @@ export default function App() {
         <div style={{ width: '100%', height: '100vh', flexShrink: 0, overflow: 'hidden' }}>
           <div 
             ref={contactCallbackRef}
-            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', scrollBehavior: 'smooth', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)', maskImage: 'linear-gradient(to bottom, transparent 0px, transparent 80px, black 120px)' }}
-            className="snap-y snap-mandatory"
+            style={{ position: 'relative', width: '100%', height: '100%', overflowY: 'auto', WebkitOverflowScrolling: 'touch', scrollBehavior: 'smooth' }}
+            className="section-mask snap-y snap-mandatory"
           >
             {contactEl && (
               <>

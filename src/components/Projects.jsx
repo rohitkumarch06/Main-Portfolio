@@ -128,6 +128,16 @@ function ProjectCard({
 }) {
   const ref = useRef(null);
   const [isCardHovered, setIsCardHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     container: scrollContainer,
@@ -160,65 +170,105 @@ function ProjectCard({
   return (
     <motion.div
       ref={ref}
-      style={{ scale, y, opacity }}
+      style={{ 
+        scale: isMobile ? 1 : scale, 
+        y: isMobile ? 0 : y, 
+        opacity: isMobile ? 1 : opacity 
+      }}
       onMouseEnter={() => setIsCardHovered(true)}
       onMouseLeave={() => setIsCardHovered(false)}
-      className="h-[70vh] flex items-center justify-center snap-start snap-always scroll-mt-28"
+      className="relative h-screen lg:h-[70vh] flex flex-col lg:flex-row items-center justify-center snap-start snap-always scroll-mt-0 px-4 md:px-8 lg:px-0 py-16 lg:py-0 w-full"
     >
-      <div className="flex gap-6 items-center">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 items-center w-full max-w-[90vw] lg:max-w-none mx-auto lg:mx-0">
 
-        {/* SMALL CARDS */}
-        <div className="flex flex-col gap-6">
-          {project.images?.slice(0, 2).map((img, i) => (
-            <motion.div
-              key={i}
-              animate={{ 
-                y: isCardHovered ? (i === 0 ? -10 : 10) : 0,
-                scale: isCardHovered ? 1.04 : 1 
-              }}
-              transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              className="w-[240px] h-[140px] overflow-hidden rounded-2xl border border-white/5 shadow-lg"
+        {/* MOBILE ONLY CONTENT: TITLE, DESC, TECH STACK, GITHUB (Compact to fit on one screen) */}
+        <div className="block lg:hidden w-full text-left space-y-3 mb-2">
+          <h3 className="text-xl sm:text-2xl italic font-semibold text-white tracking-tight font-serif">
+            {project.title}
+          </h3>
+          <p className="text-gray-400 text-[11px] leading-relaxed line-clamp-4">
+            🚀 {project.desc}
+          </p>
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {project.tech?.map((t, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#111] border border-white/10 text-[9px] text-gray-300"
+              >
+                <span>{t.icon}</span>
+                {t.name}
+              </div>
+            ))}
+          </div>
+          <div className="pt-2">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-[10px] font-semibold text-white transition-all shadow-lg"
             >
+              <FaGithub size={12} className="text-white" />
+              <span>GITHUB REPOSITORY</span>
+              <FaExternalLinkAlt size={8} className="text-gray-400" />
+            </a>
+          </div>
+        </div>
+
+        {/* IMAGES CONTAINER (Side-by-side on mobile, custom sizes) */}
+        <div className="flex flex-row items-center justify-center gap-3 mt-2 lg:contents w-full">
+          {/* SMALL CARDS (Column on both mobile and desktop) */}
+          <div className="flex flex-col gap-2 justify-center">
+            {project.images?.slice(0, 2).map((img, i) => (
+              <motion.div
+                key={i}
+                animate={{ 
+                  y: isCardHovered && !isMobile ? (i === 0 ? -10 : 10) : 0,
+                  scale: isCardHovered ? 1.04 : 1 
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+                className="w-[30vw] max-w-[120px] h-[18vw] max-h-[70px] lg:w-[240px] lg:h-[140px] lg:max-w-none lg:max-h-none overflow-hidden rounded-xl lg:rounded-2xl border border-white/5 shadow-lg"
+              >
+                <motion.img
+                  src={img}
+                  alt="project item thumbnail"
+                  animate={{ scale: isCardHovered ? 1.1 : 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* BIG CARD */}
+          <motion.div 
+            animate={{ 
+              scale: isCardHovered ? 1.03 : 1,
+              boxShadow: isCardHovered ? "0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.15)" : "0 10px 20px rgba(0,0,0,0.3)"
+            }}
+            transition={{ type: "spring", stiffness: 350, damping: 22 }}
+            className="relative w-[56vw] max-w-[210px] h-[38vw] max-h-[148px] lg:w-[400px] lg:h-[200px] lg:max-w-none lg:max-h-none rounded-xl lg:rounded-2xl border border-white/10 overflow-visible transition-colors duration-300 mx-auto lg:mx-0"
+          >
+            <div className="w-full h-full rounded-xl lg:rounded-2xl overflow-hidden flex items-center justify-center">
               <motion.img
-                src={img}
-                alt="project item thumbnail"
-                animate={{ scale: isCardHovered ? 1.1 : 1 }}
+                src={project.images?.[2]}
+                alt="project main thumbnail"
+                animate={{ scale: isCardHovered ? 1.08 : 1 }}
                 transition={{ duration: 0.4 }}
                 className="w-full h-full object-cover"
               />
+            </div>
+
+            <motion.div 
+              animate={{ 
+                scale: isCardHovered ? 1.15 : 1,
+                rotate: isCardHovered ? 6 : 0
+              }}
+              className="absolute -top-10 -right-10 z-20 scale-75 lg:scale-100 origin-center"
+            >
+              <RotatingBadge link={project.link} />
             </motion.div>
-          ))}
-        </div>
-
-        {/* BIG CARD */}
-        <motion.div 
-          animate={{ 
-            scale: isCardHovered ? 1.03 : 1,
-            boxShadow: isCardHovered ? "0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.15)" : "0 10px 20px rgba(0,0,0,0.3)"
-          }}
-          transition={{ type: "spring", stiffness: 350, damping: 22 }}
-          className="relative w-[400px] h-[200px] rounded-2xl border border-white/10 overflow-visible transition-colors duration-300"
-        >
-          <div className="w-full h-full rounded-2xl overflow-hidden">
-            <motion.img
-              src={project.images?.[2]}
-              alt="project main thumbnail"
-              animate={{ scale: isCardHovered ? 1.08 : 1 }}
-              transition={{ duration: 0.4 }}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <motion.div 
-            animate={{ 
-              scale: isCardHovered ? 1.15 : 1,
-              rotate: isCardHovered ? 6 : 0
-            }}
-            className="absolute -top-10 -right-10 z-20"
-          >
-            <RotatingBadge link={project.link} />
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );
@@ -253,7 +303,7 @@ export default function Projects({ scrollContainer, activeSection }) {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full lg:w-[55%] px-6 py-16 flex flex-col gap-16">
+        <div className="w-full lg:w-[55%] px-4 lg:px-6 py-16 flex flex-col gap-16">
           {projects.map((project) => (
             <ProjectCard
               key={project.id}

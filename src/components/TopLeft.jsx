@@ -10,7 +10,7 @@ export default function TopLeft() {
   return (
     <motion.div
       style={{ opacity }}
-      className="fixed top-6 left-6 flex items-center gap-3 text-xs z-50"
+      className="fixed top-6 left-6 hidden md:flex items-center gap-3 text-xs z-50"
     >
       <span className="font-semibold bg-gradient-to-r from-gray-400 via-gray-200 to-gray-500 text-transparent bg-clip-text tracking-wide">
         RK

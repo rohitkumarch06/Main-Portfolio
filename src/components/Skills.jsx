@@ -326,6 +326,16 @@ function LeftPanel({ activeIndex }) {
 // ─── RIGHT SKILL CARD (images unchanged) ──────────────
 function SkillCard({ category, onVisible, scrollContainer }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     container: scrollContainer,
@@ -358,76 +368,101 @@ function SkillCard({ category, onVisible, scrollContainer }) {
   return (
     <motion.div
       ref={ref}
-      style={{ scale, y, opacity }}
-      className="relative h-[80vh] min-h-[500px] flex items-center justify-center snap-start snap-always scroll-mt-28"
+      style={{ 
+        scale: isMobile ? 1 : scale, 
+        y: isMobile ? 0 : y, 
+        opacity: isMobile ? 1 : opacity 
+      }}
+      className="relative h-screen lg:h-[80vh] min-h-[500px] flex flex-col lg:flex-row items-center justify-center snap-start snap-always scroll-mt-0 px-4 md:px-8 lg:px-0 py-16 lg:py-0 w-full"
     >
-      <div className="flex gap-6 items-center">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6 items-center w-full max-w-[90vw] lg:max-w-none mx-auto lg:mx-0">
 
-        {/* SMALL CARDS */}
-        <div className="flex flex-col gap-6">
-          {category.images?.slice(0, 2).map((item, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ 
-                scale: 1.04, 
-                borderColor: "rgba(56, 189, 248, 0.3)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(56,189,248,0.06)" 
-              }}
-              className="w-[240px] h-[140px] rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-xl shadow-md overflow-hidden flex items-center justify-center relative transition-colors duration-300"
-            >
-              {item.type === "component" ? item.component : <img src={item.src} alt="skills sub preview" className="w-full h-full object-cover" />}
-            </motion.div>
-          ))}
+        {/* MOBILE ONLY CONTENT: TITLE, DESC, & SKILL GROUPS (Ultra-compact to fit on one screen) */}
+        <div className="block lg:hidden w-full text-left space-y-3 mb-2">
+          <h3 className="text-xl sm:text-2xl italic font-semibold text-white tracking-tight font-serif">
+            {category.title}
+          </h3>
+          <p className="text-gray-400 text-[11px] leading-relaxed">
+            ✦ {category.desc}
+          </p>
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {category.groups.flatMap(g => g.skills).map((skill, j) => (
+              <div key={j} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium text-gray-200 bg-white/5 border border-white/10">
+                <span className="text-xs">{skill.icon}</span>
+                <span>{skill.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* BIG CARD */}
-        <motion.div 
-          whileHover={{ 
-            scale: 1.02, 
-            borderColor: "rgba(56, 189, 248, 0.3)",
-            boxShadow: "0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(56,189,248,0.06)"
-          }}
-          className="relative w-[400px] h-[200px] rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-lg transition-all duration-300"
-        >
-          <div className="w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
-            {category.images?.[2].type === "component"
-              ? category.images?.[2].component
-              : <img src={category.images?.[2].src} alt="skills main preview" className="w-full h-full object-cover" />}
+        {/* IMAGES CONTAINER (Side-by-side on mobile, custom sizes) */}
+        <div className="flex flex-row items-center justify-center gap-3 mt-2 lg:contents w-full">
+          {/* SMALL CARDS (Column on both mobile and desktop) */}
+          <div className="flex flex-col gap-2 justify-center">
+            {category.images?.slice(0, 2).map((item, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ 
+                  scale: 1.04, 
+                  borderColor: "rgba(56, 189, 248, 0.3)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(56,189,248,0.06)" 
+                }}
+                className="w-[30vw] max-w-[120px] h-[18vw] max-h-[70px] lg:w-[240px] lg:h-[140px] lg:max-w-none lg:max-h-none rounded-xl lg:rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-xl shadow-md overflow-hidden flex items-center justify-center relative transition-colors duration-300"
+              >
+                {item.type === "component" ? item.component : <img src={item.src} alt="skills sub preview" className="w-full h-full object-cover" />}
+              </motion.div>
+            ))}
           </div>
 
+          {/* BIG CARD */}
           <motion.div 
-            whileHover={{ scale: 1.15 }}
-            className="absolute -top-10 -right-10 pointer-events-auto cursor-pointer"
+            whileHover={{ 
+              scale: 1.02, 
+              borderColor: "rgba(56, 189, 248, 0.3)",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(56,189,248,0.06)"
+            }}
+            className="relative w-[56vw] max-w-[210px] h-[38vw] max-h-[148px] lg:w-[400px] lg:h-[200px] lg:max-w-none lg:max-h-none rounded-xl lg:rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-lg transition-all duration-300 mx-auto lg:mx-0"
           >
-            <div className="relative w-[120px] h-[120px] block select-none">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-                className="absolute inset-0"
-              >
-                <svg viewBox="0 0 200 200" className="w-full h-full">
-                  <defs>
-                    <path
-                      id={`circlePath-skills-${category.id}`}
-                      d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"
-                    />
-                  </defs>
-                  <text fill="white" fontSize="13" letterSpacing="1.8" className="font-semibold">
-                    <textPath href={`#circlePath-skills-${category.id}`}>
-                      {category.badgeText}
-                    </textPath>
-                  </text>
-                </svg>
-              </motion.div>
+            <div className="w-full h-full rounded-xl lg:rounded-2xl overflow-hidden flex items-center justify-center">
+              {category.images?.[2].type === "component"
+                ? category.images?.[2].component
+                : <img src={category.images?.[2].src} alt="skills main preview" className="w-full h-full object-cover" />}
+            </div>
 
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-[50px] h-[50px] rounded-full bg-white text-black flex items-center justify-center text-lg font-bold shadow-md hover:scale-105 transition">
-                  ⚡
+            <motion.div 
+              whileHover={{ scale: 1.15 }}
+              className="absolute -top-10 -right-10 pointer-events-auto cursor-pointer scale-75 lg:scale-100 origin-center"
+            >
+              <div className="relative w-[120px] h-[120px] block select-none">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+                  className="absolute inset-0"
+                >
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <defs>
+                      <path
+                        id={`circlePath-skills-${category.id}`}
+                        d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"
+                      />
+                    </defs>
+                    <text fill="white" fontSize="13" letterSpacing="1.8" className="font-semibold">
+                      <textPath href={`#circlePath-skills-${category.id}`}>
+                        {category.badgeText}
+                      </textPath>
+                    </text>
+                  </svg>
+                </motion.div>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-[50px] h-[50px] rounded-full bg-white text-black flex items-center justify-center text-lg font-bold shadow-md hover:scale-105 transition">
+                    ⚡
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
 
       </div>
     </motion.div>
@@ -463,7 +498,7 @@ export default function Skills({ scrollContainer, activeSection }) {
         </div>
 
         {/* RIGHT SCROLLABLE CARDS */}
-        <div className="relative w-full lg:w-[55%] px-6 py-16 flex flex-col gap-16">
+        <div className="relative w-full lg:w-[55%] px-4 lg:px-6 py-16 flex flex-col gap-16">
           {skillCategories.map((category) => (
             <SkillCard
               key={category.id}

@@ -35,7 +35,7 @@ export default function About({ scrollContainer, setActiveSection }) {
       </div>
 
       {/* ACTUAL CONTENT */}
-      <div className="relative w-full flex flex-col md:flex-row items-center justify-between z-10 px-6 md:px-12 lg:px-16 snap-start snap-always min-h-screen py-24">
+      <div className="relative w-full flex flex-col md:flex-row items-center justify-between z-10 px-6 md:px-12 lg:px-16 snap-start snap-always min-h-screen py-20 md:py-24">
         {/* LEFT COLUMN: ABOUT DETAILS */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-end md:pr-12 lg:pr-16">
           <div className="w-full max-w-xl">
@@ -142,11 +142,11 @@ export default function About({ scrollContainer, setActiveSection }) {
 
         {/* RIGHT COLUMN: CAROUSEL IMAGE STACK */}
         <div 
-          className="w-full md:w-1/2 flex items-center justify-center md:justify-start md:pl-24 lg:pl-[220px] xl:pl-[300px] mt-12 md:mt-0 md:-translate-y-10 lg:-translate-y-16 relative z-10"
+          className="w-full md:w-1/2 flex items-center justify-center md:justify-start md:pl-24 lg:pl-[220px] xl:pl-[300px] mt-10 md:mt-0 md:-translate-y-10 lg:-translate-y-16 relative z-10"
           onMouseEnter={() => setIsStackHovered(true)}
           onMouseLeave={() => setIsStackHovered(false)}
         >
-          <div className="relative w-[340px] h-[420px] flex items-center justify-center">
+          <div className="relative w-[240px] h-[300px] sm:w-[340px] sm:h-[420px] flex items-center justify-center">
             {images.map((img, i) => {
               const position = (i - index + images.length) % images.length;
 

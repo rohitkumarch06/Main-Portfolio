@@ -19,7 +19,7 @@ export default function Hero({ activeSection, setActiveSection }) {
   return (
     <div id="home">
       {/* ================= HERO CONTENT ================= */}
-      <main id="home-main" style={{ background: 'radial-gradient(circle at 20% 70%, #182024 0%, #0a0e14 55%, #050508 100%)' }} className="relative min-h-screen text-white flex flex-col md:flex-row items-stretch justify-between z-10 px-6 md:px-12 lg:px-16 overflow-hidden">
+      <main id="home-main" style={{ background: 'radial-gradient(circle at 20% 70%, #182024 0%, #0a0e14 55%, #050508 100%)' }} className="relative min-h-screen text-white flex flex-col md:flex-row items-stretch justify-between z-10 px-6 md:px-12 lg:px-16 overflow-hidden pb-20 md:pb-0">
 
         {/* BACKGROUND GLOW */}
         <div className="absolute inset-0 -z-10">
@@ -27,7 +27,7 @@ export default function Hero({ activeSection, setActiveSection }) {
         </div>
 
         {/* LEFT COLUMN: HERO DETAILS */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-end md:pr-12 lg:pr-16 pt-32 pb-20 md:py-0 relative z-10">
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-end md:pr-12 lg:pr-16 pt-24 md:pt-0 pb-4 md:pb-20 lg:pb-0 relative z-10">
           <div className="w-full max-w-xl text-left">
             {/* Cursive Subtitle */}
             <motion.p
@@ -43,7 +43,7 @@ export default function Hero({ activeSection, setActiveSection }) {
             {/* NAME (Staggered Letter Reveal - Slow One-by-One in Cinzel Decorative) */}
             <motion.h1
               style={{ fontFamily: "'Cinzel Decorative', serif" }}
-              className="text-[70px] md:text-[100px] lg:text-[120px] xl:text-[140px] font-bold tracking-normal leading-none text-left flex overflow-hidden py-2"
+              className="text-[52px] md:text-[70px] lg:text-[100px] xl:text-[120px] 2xl:text-[140px] font-bold tracking-normal leading-none text-left flex overflow-hidden py-2"
             >
               {text.split("").map((char, index) => (
                 <motion.span
@@ -74,7 +74,7 @@ export default function Hero({ activeSection, setActiveSection }) {
               initial={{ opacity: 0, x: -100 }}
               animate={isHomeActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              className="mt-4 text-3xl md:text-5xl font-semibold text-left"
+              className="mt-4 text-xl md:text-3xl lg:text-5xl font-semibold text-left"
             >
               Crafting digital{" "}
               <span className="font-serif italic text-gray-400">
@@ -96,7 +96,7 @@ export default function Hero({ activeSection, setActiveSection }) {
         </div>
 
         {/* RIGHT COLUMN: ID CARD CONTAINER */}
-        <div className="w-full md:w-1/2 flex items-start justify-center md:justify-start md:pl-24 lg:pl-[220px] xl:pl-[300px] mt-12 md:mt-0 relative z-10">
+        <div className="w-full md:w-1/2 flex items-center justify-center md:items-start md:justify-start md:pl-24 lg:pl-[220px] xl:pl-[300px] mt-4 md:mt-0 relative z-10">
           <motion.div
             initial={{ y: -800, opacity: 0 }}
             animate={isHomeActive ? { y: 0, opacity: 1 } : { y: -800, opacity: 0 }}
@@ -114,15 +114,15 @@ export default function Hero({ activeSection, setActiveSection }) {
         </div>
 
         {/* BOTTOM LEFT */}
-        <div className="absolute bottom-6 left-6 md:left-12 lg:left-16 z-40">
-          <div className="flex items-start gap-2">
-            <span className="text-green-500 text-lg">📍</span>
+        <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 lg:left-16 z-40 max-w-[45%] md:max-w-none">
+          <div className="flex items-start gap-1.5 md:gap-2">
+            <span className="text-green-500 text-sm md:text-lg flex-shrink-0">📍</span>
 
             <div className="flex flex-col leading-tight">
-              <span className="text-white text-[12px] uppercase tracking-[0.15em]">
+              <span className="text-white text-[10px] md:text-[12px] uppercase tracking-[0.1em] md:tracking-[0.15em]">
                 Based in Jagdishpur,
               </span>
-              <span className="text-gray-500 text-[11px] uppercase tracking-[0.15em]">
+              <span className="text-gray-500 text-[9px] md:text-[11px] uppercase tracking-[0.1em] md:tracking-[0.15em]">
                 West Champaran, Bihar, India
               </span>
             </div>
@@ -130,7 +130,7 @@ export default function Hero({ activeSection, setActiveSection }) {
         </div>
 
         {/* BOTTOM RIGHT */}
-        <div className="absolute bottom-6 right-6 md:right-12 lg:right-16 z-40 text-center">
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 lg:right-16 z-40 text-center max-w-[45%] md:max-w-none">
           <div className="flex justify-center mb-2">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-blue-500">
               <path d="M12 3L3 8L12 13L21 8L12 3Z" stroke="currentColor" strokeWidth="1.5" />
@@ -152,7 +152,7 @@ export default function Hero({ activeSection, setActiveSection }) {
       </main>
 
       {/* ================= BENTO GRID ================= */}
-      <section id="home-bento" style={{ background: 'radial-gradient(circle at 20% 70%, #182024 0%, #0a0e14 55%, #050508 100%)' }} className="py-16 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+      <section id="home-bento" style={{ background: 'radial-gradient(circle at 20% 70%, #182024 0%, #0a0e14 55%, #050508 100%)' }} className="py-16 max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
 
         {/* LEFT CARD */}
         <motion.div
@@ -165,7 +165,7 @@ export default function Hero({ activeSection, setActiveSection }) {
             boxShadow: "0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56,189,248,0.08)"
           }}
           transition={{ duration: 0.4 }}
-          className="md:col-span-1 h-[520px] bg-white/[0.03] border border-white/10 rounded-[32px] p-6 backdrop-blur-xl flex flex-col justify-between transition-colors duration-300"
+          className="md:col-span-1 h-[420px] md:h-[520px] bg-white/[0.03] border border-white/10 rounded-[32px] p-6 backdrop-blur-xl flex flex-col justify-between transition-colors duration-300"
         >
           <div>
             <h2 className="text-[26px] font-semibold">
@@ -237,7 +237,7 @@ export default function Hero({ activeSection, setActiveSection }) {
             boxShadow: "0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(168,85,247,0.08)"
           }}
           transition={{ duration: 0.4 }}
-          className="md:col-span-2 h-[520px] relative rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden transition-colors duration-300"
+          className="md:col-span-2 h-auto min-h-[400px] md:h-[520px] relative rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden transition-colors duration-300"
         >
           {/* SOFT GLOW */}
           <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.05),transparent_60%)] pointer-events-none" />
@@ -433,7 +433,7 @@ export default function Hero({ activeSection, setActiveSection }) {
             boxShadow: "0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(34,197,94,0.08)"
           }}
           transition={{ duration: 0.4 }}
-          className="md:col-span-1 h-[520px] bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[32px] p-6 flex flex-col justify-between relative overflow-hidden transition-colors duration-300"
+          className="md:col-span-1 h-[340px] md:h-[520px] bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[32px] p-6 flex flex-col justify-between relative overflow-hidden transition-colors duration-300"
         >
           {/* SOFT GLOW */}
           <div className="absolute inset-0 rounded-[32px] bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.05),transparent_60%)] pointer-events-none" />
